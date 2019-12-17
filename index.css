@@ -1,20 +1,31 @@
-body {
-  font-family: 'Roboto Condensed', 'sans serif';
-  display: flex;
-  flex-direction: column;
+* {
+box-sizing: border-box;
 }
 
-.content {
+body {
+  font-family: 'Roboto Condensed', 'sans serif';
+
+}
+
+#products {
   display: flex;
   flex-wrap: wrap;
 }
 
-.product-card > h1 {
+.product-card > h2 {
   text-transform: uppercase;
 }
 
 .product-card {
-  width: 400px;
+  color: white;
+  width: calc(50% - 2rem);
+  display: flex;
+  flex-direction: column;
+  background-color: tomato;
   height: 300px;
-  margin-right: 0px;
+  margin: 1rem;
+  border-radius: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }

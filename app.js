@@ -8,6 +8,8 @@ const offerings = fetch(
   'https://acme-users-api-rev.herokuapp.com/api/offerings'
 );
 
+
+
 function renderProductCards(arr){
   arr.forEach(function (el){
     const newElement = document.createElement('div')
@@ -19,7 +21,25 @@ function renderProductCards(arr){
   contentElement.appendChild(newElement)
     newElement.classList.add('product-card')
   })
- }
+}
+
+const firstProductOfferings =[]
+function getOfferingPrice(arr,arrTwo, arrThree){
+  arr.forEach(offering => {
+    if (offering.productId === arrTwo[0].id){
+      firstProductOfferings.push(offering.price)
+    }
+  })
+  console.log(firstProductOfferings)
+ return firstProductOfferings
+}
+
+
+    // function getCompanyIds(arr){
+    //   arr.forEach(el => {
+    //     console.log(el.name)
+    //   })
+    // }
 
 async function getData() {
   const responses = await Promise.all([products, companies, offerings]);
@@ -31,17 +51,13 @@ async function getData() {
   console.log('companies', companiesJSON);
   console.log('offerings', offeringsJSON);
    renderProductCards(productsJSON)
+   getOfferingPrice(offeringsJSON, productsJSON)
 
   //  getCompanyIds(companiesJSON)
   }
 
   getData()
 
-  // function getCompanyIds(arr){
-  //   arr.forEach(el => {
-  //     console.log(el.name)
-  //   })
-  // }
 
 
 
@@ -92,15 +108,7 @@ async function getData() {
   //  getOfferingPrice()
 
 
-//  const firstProductOfferings =[]
-//  function getOfferingPrice(){
-//    offeringsJSON.forEach(offering => {
-//      if (offering.productId === productsJSON[0].id){
-//        firstProductOfferings.push(offering)
-//      }
-//    })
-//   return firstProductOfferings
-//  }
+
 
 
 
