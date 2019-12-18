@@ -14,17 +14,6 @@ const offerings = fetch(
 
 console.log('stuff')
 
-function getCompanyNamePrice(offeringArr, companiesArr, productId){
-  const companyNamePriceEl = document.createElement('ul')
-  for (let i = 0; i < offeringArr.length; i++){
-    for (let j = 0; j  < companiesArr.length; j++){
-        if (offeringArr[i].companyId === companiesArr[j].id && offeringArr[i].productId === productId){
-          console.log(companiesArr[j].name, offeringArr[i].price)
-          }
-      }
-    }
-    }
-
 async function getAllData(){
   const responses = await Promise.all([products, companies, offerings])
   const productsResponse = responses[0]
@@ -38,15 +27,15 @@ async function getAllData(){
   console.log('products', productsJSON)
   console.log('companies', companiesJSON)
   console.log('offerings', offeringsJSON)
-  buildProductCard(productsJSON)
 
+  buildProductCard(productsJSON)
   getProductId(productsJSON)
-  getCompanyId(companiesJSON)
-  getCompanyNamePrice(offeringsJSON, companiesJSON, getProductId(productsJSON))
+  getOfferingPrice(offeringsJSON, getProductId(productsJSON))
+
 }
 getAllData()
 
-function buildProductCard(productArr){
+function buildProductCard(productArr, offeringArr, companiesArr){
   for (let i = 0; i < productArr.length; i++){
     const newProductCard = document.createElement('div')
     newProductCard.innerHTML = `
@@ -55,23 +44,28 @@ function buildProductCard(productArr){
     <div>$${productArr[i].suggestedPrice}</div>
     `
     productsElement.appendChild(newProductCard)
-
     newProductCard.classList.add('product-card')
-
-  }
-}
+      }
+    }
 
 function getProductId(arr){
-  // const productsResponse = await fetch('https://acme-users-api-rev.herokuapp.com/api/products')
-  // const productsJSON = await productsResponse.json()
-  // console.log(productsJSON)
-  const productId = arr[0].id
-  console.log(productId)
+  let productId = arr[0].id
   return productId
 }
 
 function getCompanyId(arr){
-  const companyId = arr[0].id
-  console.log(companyId)
+  let companyId = arr[0].id
   return companyId
+}
+
+function getOfferingPrice(offeringArr, productId){
+  let offeringPrice = offeringArr[0].price
+  for (let i = 0; i < offeringArr.length; i++){
+        if (offeringArr[i].productId === productId){
+          console.log(offeringArr[i].price)
+          offeringPrice = offeringArr[i].price
+        }
+}
+console.log(offeringPrice)
+return offeringPrice
 }
